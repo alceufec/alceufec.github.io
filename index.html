@@ -2,52 +2,621 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>AFCN Engenharia de Materiais & Consultoria Técnica</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Consultoria em engenharia de materiais, fundição, qualidade e projetos.">
-  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="Consultoria técnica especializada em engenharia de materiais, fundição e qualidade industrial. Pareceres técnicos, suporte a processos e melhoria de desempenho produtivo.">
+  <link rel="icon" href="favicon.ico">
+
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif; margin:0; line-height:1.6}
-    header{padding:48px 24px; text-align:center; border-bottom:1px solid #eee}
-    h1{margin:0 0 8px}
-    main{max-width:860px; margin:0 auto; padding:24px}
-    .card{border:1px solid #eee; border-radius:12px; padding:20px; margin:16px 0}
-    footer{border-top:1px solid #eee; padding:24px; text-align:center; font-size:14px; color:#666}
-    a{color:#163E64; text-decoration:none}
-    a:hover{text-decoration:underline}
+    :root {
+      --azul-afcn: rgb(22,62,100);
+      --cinza-afcn: rgb(127,127,127);
+      --bg-page: #f8f9fa;
+      --bg-card: #ffffff;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: #1a1a1a;
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      line-height: 1.55;
+    }
+
+    header.site-header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .topbar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand__nome {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--azul-afcn);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .brand__desc {
+      font-size: .8rem;
+      color: var(--cinza-afcn);
+      line-height: 1.2;
+    }
+
+    nav a {
+      font-size: .9rem;
+      color: #1a1a1a;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: var(--radius-md);
+    }
+
+    nav a:hover {
+      background-color: rgba(22,62,100,0.07);
+      color: var(--azul-afcn);
+    }
+
+    /* HERO */
+    .hero {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .hero__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px 56px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    @media(min-width:768px){
+      .hero__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+      }
+    }
+
+    .hero__text h1 {
+      margin: 0 0 16px;
+      font-size: clamp(1.6rem,1vw+1rem,2rem);
+      font-weight: 600;
+      color: var(--azul-afcn);
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+    }
+
+    .hero__text p {
+      margin: 0 0 24px;
+      font-size: 1rem;
+      color: #1a1a1a;
+      max-width: 46ch;
+    }
+
+    .bullets {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 28px;
+      padding: 0;
+      list-style: none;
+      font-size: .92rem;
+      color: #1a1a1a;
+    }
+
+    .bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .bullets li::before {
+      content: "●";
+      font-size: .7rem;
+      line-height: 1.4;
+      color: var(--azul-afcn);
+      margin-top: 4px;
+    }
+
+    .hero__cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primario {
+      background-color: var(--azul-afcn);
+      color: #fff;
+      border: 0;
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: .9rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-block;
+      line-height: 1.2;
+      box-shadow: 0 8px 20px rgba(22,62,100,0.22);
+    }
+
+    .btn-primario:hover {
+      filter: brightness(1.07);
+    }
+
+    .btn-secundario {
+      background-color: #fff;
+      color: var(--azul-afcn);
+      border: 1px solid rgba(22,62,100,0.3);
+      border-radius: var(--radius-md);
+      padding: 12px 18px;
+      font-size: .9rem;
+      font-weight: 500;
+      text-decoration: none;
+      line-height: 1.2;
+    }
+
+    .btn-secundario:hover {
+      background-color: rgba(22,62,100,0.07);
+    }
+
+    .hero__card {
+      background-color: var(--bg-page);
+      border-radius: var(--radius-lg);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 16px 40px rgba(0,0,0,.05);
+      padding: 24px 24px 16px;
+    }
+
+    .hero__card h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: #1a1a1a;
+      font-weight: 600;
+      letter-spacing: -.02em;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      row-gap: 8px;
+    }
+
+    .hero__card small {
+      font-size: .7rem;
+      font-weight: 400;
+      color: var(--cinza-afcn);
+    }
+
+    .hero__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: .9rem;
+      color: #1a1a1a;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero__list li {
+      border-left: 3px solid var(--azul-afcn);
+      background-color: #fff;
+      border-radius: 6px;
+      padding: 12px 12px 12px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.03);
+      line-height: 1.4;
+    }
+
+    .hero__list strong {
+      display: block;
+      font-weight: 600;
+    }
+
+    .hero__list span {
+      color: var(--cinza-afcn);
+      font-size: .8rem;
+      font-weight: 400;
+      display: block;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    /* SEÇÕES */
+    section.section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+
+    .section__title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--azul-afcn);
+      margin: 0 0 8px;
+      letter-spacing: -.03em;
+      line-height: 1.3;
+    }
+
+    .section__subtitle {
+      margin: 0 0 32px;
+      font-size: .95rem;
+      color: #1a1a1a;
+      max-width: 70ch;
+    }
+
+    /* Cards em grid */
+    .grid-cards {
+      display: grid;
+      gap: 20px;
+    }
+
+    @media(min-width:768px){
+      .grid-cards {
+        grid-template-columns: repeat(3,1fr);
+      }
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 16px 40px rgba(0,0,0,.05);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 200px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -.02em;
+      line-height: 1.4;
+    }
+
+    .card p {
+      margin: 0;
+      color: #1a1a1a;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+
+    .card small {
+      display: block;
+      color: var(--cinza-afcn);
+      font-size: .75rem;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+
+    /* Contato / CTA final */
+    .contato-bloco {
+      background-color: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 16px 40px rgba(0,0,0,.05);
+      padding: 24px 24px 16px;
+      max-width: 480px;
+    }
+
+    .contato-row {
+      display: grid;
+      gap: 12px;
+      font-size: .9rem;
+      line-height: 1.4;
+    }
+
+    .contato-row a {
+      color: var(--azul-afcn);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .contato-row a:hover {
+      text-decoration: underline;
+    }
+
+    /* Rodapé */
+    footer.site-footer {
+      background-color: var(--azul-afcn);
+      color: #fff;
+      margin-top: 48px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 24px;
+      font-size: .8rem;
+      line-height: 1.5;
+      display: grid;
+      gap: 16px;
+    }
+
+    @media(min-width:768px){
+      .footer-inner {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+
+    .footer-brand {
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .footer-brand span {
+      display: block;
+      color: rgba(255,255,255,.6);
+      font-weight: 400;
+      font-size: .8rem;
+    }
+
+    .footer-copy {
+      font-size: .75rem;
+      color: rgba(255,255,255,.7);
+    }
+
+    .footer-copy span {
+      white-space: nowrap;
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>AFCN Engenharia de Materiais & Consultoria Técnica</h1>
-    <p>Consultoria técnica em materiais, fundição (cera perdida), qualidade e projetos.</p>
+
+  <!-- TOPO -->
+  <header class="site-header">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand__nome">AFCN Engenharia</div>
+        <div class="brand__desc">Materiais • Qualidade • Fundição</div>
+      </div>
+
+      <nav>
+        <a href="#servicos">Serviços</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <section class="card">
-      <h2>Serviços</h2>
-      <ul>
-        <li>Engenharia de Materiais e Metalurgia</li>
-        <li>Fundição por cera perdida / investment casting</li>
-        <li>Qualidade, processos e auditorias</li>
-        <li>Treinamentos técnicos e pareceres</li>
-      </ul>
-    </section>
 
-    <section class="card">
-      <h2>Contato</h2>
-      <p>E-mail: <a href="mailto:contato@afcn.eng.br">contato@afcn.eng.br</a></p>
-      <p>WhatsApp: <a href="https://wa.me/55XXXXXXXXXX" target="_blank" rel="noopener">+55 (XX) XXXXX-XXXX</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/SEUUSER" target="_blank" rel="noopener">/in/SEUUSER</a></p>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__inner">
 
-    <section class="card">
-      <h2>Sobre</h2>
-      <p>37+ anos de experiência em engenharia de produto e qualidade. Agora, consultoria dedicada
-         a soluções sob medida para a sua empresa.</p>
-    </section>
-  </main>
-  <footer>© <span id="y"></span> AFCN Engenharia. Todos os direitos reservados.</footer>
-  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+      <div class="hero__text">
+        <h1>Engenharia de Materiais e Qualidade aplicada ao chão de fábrica</h1>
+        <p>
+          Consultoria técnica para diagnóstico de falhas, melhoria de processo
+          e tomada de decisão em engenharia de materiais, fundição e controle de qualidade.
+          Foco em resultado industrial, não em relatório genérico.
+        </p>
+
+        <ul class="bullets">
+          <li>Fundição por cera perdida / investment casting</li>
+          <li>Materiais metálicos e tratamentos térmicos</li>
+          <li>Auditorias de processo e confiabilidade</li>
+          <li>Parecer técnico e suporte à diretoria</li>
+        </ul>
+
+        <div class="hero__cta-row">
+          <a class="btn-primario" href="#contato">Solicitar contato técnico</a>
+          <a class="btn-secundario" href="#servicos">Ver serviços</a>
+        </div>
+      </div>
+
+      <aside class="hero__card" aria-labelledby="painel-servicos">
+        <h2 id="painel-servicos">
+          Principais entregas
+          <small>Exemplo do escopo de trabalho</small>
+        </h2>
+
+        <ul class="hero__list">
+          <li>
+            <strong>Diagnóstico de Falha / Parecer Técnico</strong>
+            <span>Análise técnica independente para suportar decisões internas,
+              fornecedores ou clientes.</span>
+          </li>
+          <li>
+            <strong>Melhoria de Processo & Qualidade</strong>
+            <span>Mapeamento de causa raiz e ações de robustez de processo
+              (fundição, usinagem, tratamento térmico, inspeção).</span>
+          </li>
+          <li>
+            <strong>Treinamento e Capacitação</strong>
+            <span>Formação prática para equipes de engenharia, qualidade e produção.</span>
+          </li>
+        </ul>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="section">
+    <h2 class="section__title">Serviços</h2>
+    <p class="section__subtitle">
+      Atuação técnica sob demanda, alinhada com metas de custo, prazo e confiabilidade.
+    </p>
+
+    <div class="grid-cards">
+
+      <div class="card">
+        <h3>Engenharia de Materiais</h3>
+        <p>
+          Seleção de materiais, análise metalúrgica, avaliação de tratamentos,
+          revisão de especificações técnicas, suporte em qualificação de fornecedores.
+        </p>
+        <small>
+          Experiência direta em ligas metálicas, integridade estrutural,
+          ensaios e critérios de aceitação.
+        </small>
+      </div>
+
+      <div class="card">
+        <h3>Fundição / Investment Casting</h3>
+        <p>
+          Apoio técnico em processos de fundição por cera perdida,
+          definição de parâmetros, inspeção, redução de refugo
+          e alinhamento com requisitos de cliente.
+        </p>
+        <small>
+          Do desenvolvimento de peça nova até a estabilização em série.
+        </small>
+      </div>
+
+      <div class="card">
+        <h3>Qualidade e Confiabilidade</h3>
+        <p>
+          Auditoria de processo, tratativa de não conformidade,
+          plano de ação e melhoria contínua.
+          Visão técnica e gerencial (engenharia + produção).
+        </p>
+        <small>
+          Suporte direto a engenharia, manufatura e diretoria industrial.
+        </small>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section id="diferenciais" class="section">
+    <h2 class="section__title">Diferenciais</h2>
+    <p class="section__subtitle">
+      Consultoria feita por quem já esteve responsável pelo resultado.
+      Não é teoria de slide: é prática de fábrica.
+    </p>
+
+    <div class="grid-cards">
+
+      <div class="card">
+        <h3>+37 anos de experiência</h3>
+        <p>
+          Atuação direta em engenharia de produto, processo e qualidade em indústria de grande porte,
+          incluindo posição de gestão técnica.
+        </p>
+        <small>Visão completa: desenvolvimento, produção, cliente final e campo.</small>
+      </div>
+
+      <div class="card">
+        <h3>Tomada de decisão</h3>
+        <p>
+          Parecer técnico claro para diretoria e compras. Apoio na relação fornecedor–cliente,
+          mitigando risco técnico e risco de garantia.
+        </p>
+        <small>
+          Ajuda quando “precisamos decidir agora”.
+        </small>
+      </div>
+
+      <div class="card">
+        <h3>Foco em resolver</h3>
+        <p>
+          Objetivo é reduzir custo de não qualidade, estabilizar processo
+          e aumentar confiabilidade de entrega.
+        </p>
+        <small>
+          Menos retrabalho, menos devolução, menos ruído com o cliente.
+        </small>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="section">
+    <h2 class="section__title">Sobre a AFCN Engenharia</h2>
+    <p class="section__subtitle">
+      A AFCN Engenharia de Materiais &amp; Consultoria Técnica é uma consultoria independente
+      voltada à indústria metalmecânica. A proposta é simples:
+      apoiar engenharia, qualidade e diretoria com base técnica sólida,
+      rapidez de resposta e linguagem direta.
+    </p>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="section">
+    <h2 class="section__title">Contato</h2>
+    <p class="section__subtitle">
+      Entre em contato para avaliar escopo, confidencialidade e disponibilidade.
+      Retorno rápido.
+    </p>
+
+    <div class="contato-bloco">
+      <div class="contato-row">
+        <div>
+          <strong>E-mail</strong><br>
+          <a href="mailto:contato@afcn.com.br">contato@afcn.com.br</a>
+        </div>
+
+        <div>
+          <strong>WhatsApp</strong><br>
+          <a href="https://wa.me/55XXXXXXXXXX" target="_blank" rel="noopener">
+            +55 (XX) XXXXX-XXXX
+          </a>
+        </div>
+
+        <div>
+          <strong>LinkedIn</strong><br>
+          <a href="https://www.linkedin.com/in/SEU-LINKEDIN" target="_blank" rel="noopener">
+            linkedin.com/in/SEU-LINKEDIN
+          </a>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <a class="btn-primario" style="width:100%;text-align:center;display:block" href="mailto:contato@afcn.com.br">
+          Solicitar conversa técnica
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        AFCN Engenharia de Materiais &amp; Consultoria Técnica
+        <span>
+          Engenharia de materiais • Fundição • Qualidade industrial
+        </span>
+      </div>
+
+      <div class="footer-copy">
+        © <span id="anoAtual"></span> AFCN Engenharia. Todos os direitos reservados.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Atualiza ano automático no rodapé
+    document.getElementById('anoAtual').textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
 
